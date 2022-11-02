@@ -28,15 +28,12 @@ for x in range(n):
         if(time[x][y]<t):
             t = time[x][y]
     minRow.append(t)
-print(minRow)
-
-
 
 # 2 subtract min of each row time from all row elements
 for x in range(n):
     for y in range(n):
         time[x][y] = time[x][y] - minRow[x]
-        print("rowArr",time[x][y])
+
 
 # 3 subtract min of each column time from all column elements
 minColumn = []
@@ -46,12 +43,12 @@ for x in range(n):
         if(time[y][x]<t):
             t = time[y][x]
     minColumn.append(t)
-print(minColumn)
+
 
 for x in range(n):
     for y in range(n):
         time[y][x] = time[y][x] - minColumn[x]
-print("time",time)
+
 def HungarianSolution(time):
     # step 4 Assigning zero and crossed
     #copy main array into another array time2
@@ -61,7 +58,7 @@ def HungarianSolution(time):
         for y in range(n):
             p.append(time[x][y]);
         time2.append(p)
-    print("time2 Awrray",time2)        
+     
     x=0
     while(x<n):
         count=0
@@ -79,14 +76,17 @@ def HungarianSolution(time):
     countZero = 0
     rowMarkNotEncircled = []
     totalTime = 0
+    swimmerStroke={}
     for x in range(n):
         for y in range(n):
             if(time2[x][y] =='A'):
                 countZero+=1
                 totalTime+=RealTime[x][y]
-    print(countZero)
+                swimmerStroke[swimmers[x]] = jobs[y]
+
     if(countZero == n):
-        return totalTime
+        # return totalTime
+        return {'totalMinTime': totalTime, 'data': swimmerStroke}
     # Step 5---mark rows that does not have encircled 0, mark column that have crossed zero in crossed 0 in marked, mark rows that have
     #encircled 0 in marked columns
     for x in range(n):
@@ -128,8 +128,7 @@ def HungarianSolution(time):
         for y in range(n):
             if((x in rowMarkNotEncircled or x in rowEncircledZeroInMarkedColumn) and y not in columnMarkCrossedZeroMarkedRow):
                 time[x][y]-=smallestTime
-    print(time)
-    print(time2)
+    
     return HungarianSolution(time)
 
 #step 7 
