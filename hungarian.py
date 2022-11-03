@@ -82,7 +82,7 @@ def HungarianSolution(time):
             if(time2[x][y] =='A'):
                 countZero+=1
                 totalTime+=RealTime[x][y]
-                swimmerStroke[swimmers[x]] = jobs[y]
+                swimmerStroke[swimmers[x]] = "stroke-"+jobs[y]+", time-"+str(RealTime[x][y])
 
     if(countZero == n):
         # return totalTime
@@ -108,9 +108,7 @@ def HungarianSolution(time):
             if(time2[x][y] == 'A'):
                 rowEncircledZeroInMarkedColumn.append(x)
 
-    print(rowMarkNotEncircled, columnMarkCrossedZeroMarkedRow, rowEncircledZeroInMarkedColumn)
-    print("row",rowMarkNotEncircled, rowEncircledZeroInMarkedColumn)
-    print("column",columnMarkCrossedZeroMarkedRow)
+    
     #draw lines on all row except marked row
     #draw lines on marked row
 
@@ -121,7 +119,7 @@ def HungarianSolution(time):
             if((x in rowMarkNotEncircled or x in rowEncircledZeroInMarkedColumn) and y not in columnMarkCrossedZeroMarkedRow):
                 if(type(time2[x][y])!= str):
                     Array.append(time2[x][y])
-    print("minArray",Array)
+
     smallestTime = min(Array)
     #Step 6---2 subtract this smallest from all uncovered elements
     for x in range(n):  
@@ -132,5 +130,18 @@ def HungarianSolution(time):
     return HungarianSolution(time)
 
 #step 7 
-print(HungarianSolution(time))
+p = HungarianSolution(time)
+
+# print output 
+for x, y in p.items():
+    if(x!='data'):
+        print(x, y)
+        print('\n')
+    if(x=='data'):
+        for i,j in y.items():
+            print(i,j)
+            print('\n')
+
+
+
 
